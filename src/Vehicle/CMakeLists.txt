@@ -15,6 +15,8 @@ target_sources(${CMAKE_PROJECT_NAME}
         MAVLinkLogManager.h
         MultiVehicleManager.cc
         MultiVehicleManager.h
+        PreFlightSetupApplier.cc
+        PreFlightSetupApplier.h
         RemoteIDManager.cc
         RemoteIDManager.h
         StandardModes.cc

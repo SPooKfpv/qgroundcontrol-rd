@@ -1,0 +1,55 @@
+{
+    "name": "Wåsp 1.7 Pre-Flight",
+    "version": 1,
+    "groups": [
+        {
+            "name": "Airframe & Propulsion",
+            "items": [
+                { "text": "All four propellers mounted, tightened, and undamaged?", "type": "manual" },
+                { "text": "Motor arms locked and folding mechanism secured?", "type": "manual" },
+                { "text": "Landing gear intact and legs straight?", "type": "manual" },
+                { "text": "Body shell free of cracks or damage?", "type": "manual" },
+                { "text": "All vibration dampers in place?", "type": "manual" }
+            ]
+        },
+        {
+            "name": "Battery & Power",
+            "items": [
+                { "text": "Battery fully charged (≥ 95%)?", "type": "manual" },
+                { "text": "Battery securely latched in bay?", "type": "manual" },
+                { "text": "Battery connector seated firmly, no loose pins?", "type": "manual" },
+                { "text": "Voltage reading nominal on GCS?", "type": "manual" }
+            ]
+        },
+        {
+            "name": "Communications",
+            "items": [
+                { "text": "Telemetry link active (UDP 14555)?", "type": "manual" },
+                { "text": "RC transmitter bound and range-checked?", "type": "manual" },
+                { "text": "GCS receiving heartbeat?", "type": "manual" },
+                { "text": "Video downlink operational (if equipped)?", "type": "manual" }
+            ]
+        },
+        {
+            "name": "Navigation & Sensors",
+            "items": [
+                { "text": "GPS antenna unobstructed, 3D fix acquired (≥ 8 sats)?", "type": "manual" },
+                { "text": "Compass calibration current, no interference?", "type": "manual" },
+                { "text": "Barometer altitude reading reasonable?", "type": "manual" },
+                { "text": "Home position set correctly on map?", "type": "manual" }
+            ]
+        },
+        {
+            "name": "Mission & Safety",
+            "items": [
+                { "text": "Mission plan loaded and waypoints verified?", "type": "manual" },
+                { "text": "Failsafe mode configured in Pre-Flight Setup?", "type": "manual" },
+                { "text": "Rally point set (if Rally Point failsafe)?", "type": "manual" },
+                { "text": "Geofence configured if required?", "type": "manual" },
+                { "text": "Flight area clear of obstacles and bystanders?", "type": "manual" },
+                { "text": "Wind conditions within limits (< 10 m/s)?", "type": "manual" },
+                { "text": "NOTAM/airspace check completed?", "type": "manual" }
+            ]
+        }
+    ]
+}

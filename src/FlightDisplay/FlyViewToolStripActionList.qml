@@ -45,11 +45,13 @@ ToolStripActionList {
             }
         },
         PreFlightCheckListShowAction { onTriggered: displayPreFlightChecklist() },
+        AutoMissionButton { },
         GuidedActionTakeoff { },
         GuidedActionLand { },
         GuidedActionRTL { },
         GuidedActionPause { },
         FlyViewAdditionalActionsButton { },
+        TerminalGuidanceButton { },
         FlyViewGripperButton { }
     ]
 }

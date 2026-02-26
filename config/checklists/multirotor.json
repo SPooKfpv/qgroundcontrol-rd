@@ -1,0 +1,42 @@
+{
+    "name": "Multirotor Pre-Flight",
+    "version": 1,
+    "groups": [
+        {
+            "name": "Airframe Checks",
+            "items": [
+                { "text": "Props mounted, tightened, and undamaged?", "type": "manual" },
+                { "text": "Motors spin freely with no grinding?", "type": "manual" },
+                { "text": "Frame arms and body undamaged?", "type": "manual" },
+                { "text": "Camera/payload secured and connections checked?", "type": "manual" }
+            ]
+        },
+        {
+            "name": "Power & Electronics",
+            "items": [
+                { "text": "Battery fully charged and secured?", "type": "manual" },
+                { "text": "Battery voltage nominal before arming?", "type": "manual" },
+                { "text": "All connectors seated and secured?", "type": "manual" },
+                { "text": "RC receiver bound and responding?", "type": "manual" }
+            ]
+        },
+        {
+            "name": "Navigation & Sensors",
+            "items": [
+                { "text": "GPS antenna unobstructed and 3D fix acquired?", "type": "manual" },
+                { "text": "Compass calibration current?", "type": "manual" },
+                { "text": "Home position set correctly?", "type": "manual" }
+            ]
+        },
+        {
+            "name": "Pre-Takeoff",
+            "items": [
+                { "text": "Flight area clear of obstacles and bystanders?", "type": "manual" },
+                { "text": "Wind conditions within limits?", "type": "manual" },
+                { "text": "Mission loaded and verified in QGC?", "type": "manual" },
+                { "text": "Rally point set (if using Rally Point failsafe)?", "type": "manual" },
+                { "text": "Geofence configured if required?", "type": "manual" }
+            ]
+        }
+    ]
+}

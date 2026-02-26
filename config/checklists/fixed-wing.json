@@ -1,0 +1,44 @@
+{
+    "name": "Fixed-Wing Pre-Flight",
+    "version": 1,
+    "groups": [
+        {
+            "name": "Airframe Checks",
+            "items": [
+                { "text": "Wings secured and undamaged?", "type": "manual" },
+                { "text": "Control surfaces move freely and in correct direction?", "type": "manual" },
+                { "text": "Propeller secured and undamaged?", "type": "manual" },
+                { "text": "Fuselage and tail undamaged?", "type": "manual" },
+                { "text": "Payload secured and CG within limits?", "type": "manual" }
+            ]
+        },
+        {
+            "name": "Power & Electronics",
+            "items": [
+                { "text": "Battery fully charged and secured?", "type": "manual" },
+                { "text": "Battery voltage nominal before arming?", "type": "manual" },
+                { "text": "All servo connections secure?", "type": "manual" },
+                { "text": "RC receiver bound and full range of motion confirmed?", "type": "manual" }
+            ]
+        },
+        {
+            "name": "Navigation & Sensors",
+            "items": [
+                { "text": "GPS 3D fix acquired with sufficient satellites?", "type": "manual" },
+                { "text": "Compass calibration current?", "type": "manual" },
+                { "text": "Airspeed sensor calibrated (if equipped)?", "type": "manual" },
+                { "text": "Home position set correctly?", "type": "manual" }
+            ]
+        },
+        {
+            "name": "Pre-Launch",
+            "items": [
+                { "text": "Launch area clear of obstacles and bystanders?", "type": "manual" },
+                { "text": "Wind speed and direction within limits for hand launch or catapult?", "type": "manual" },
+                { "text": "Flight plan loaded and verified?", "type": "manual" },
+                { "text": "Rally/return point set if using Rally Point failsafe?", "type": "manual" },
+                { "text": "RTL altitude set higher than all terrain in flight area?", "type": "manual" }
+            ]
+        }
+    ]
+}

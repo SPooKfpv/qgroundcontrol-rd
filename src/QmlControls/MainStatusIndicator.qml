@@ -26,6 +26,7 @@ RowLayout {
     property bool   _vehicleFlies:      _activeVehicle ? _activeVehicle.airShip || _activeVehicle.fixedWing || _activeVehicle.vtol || _activeVehicle.multiRotor : false
     property var    _vehicleInAir:      _activeVehicle ? _activeVehicle.flying || _activeVehicle.landing : false
     property bool   _vtolInFWDFlight:   _activeVehicle ? _activeVehicle.vtolInFwdFlight : false
+    property color  _statusIndicatorColor: "#23291a"
 
     function dropMainStatusIndicator() {
         let overallStatusComponent = _activeVehicle ? overallStatusIndicatorPage : overallStatusOfflineIndicatorPage
@@ -33,6 +34,16 @@ RowLayout {
     }
 
     QGCPalette { id: qgcPal }
+
+    Rectangle {
+        id:                 statusDot
+        width:              ScreenTools.defaultFontPixelHeight * 0.8
+        height:             width
+        radius:             width / 2
+        color:              control._statusIndicatorColor
+        visible:            _activeVehicle
+        Layout.alignment:   Qt.AlignVCenter
+    }
 
     QGCLabel {
         id:                 mainStatusLabel
@@ -55,19 +66,19 @@ RowLayout {
             var statusText
             if (_activeVehicle) {
                 if (_communicationLost) {
-                    _mainStatusBGColor = "red"
+                    _statusIndicatorColor = "red"
                     return mainStatusLabel._commLostText
                 }
                 if (_activeVehicle.armed) {
-                    _mainStatusBGColor = "green"
+                    _statusIndicatorColor = "green"
 
                     if (_healthAndArmingChecksSupported) {
                         if (_activeVehicle.healthAndArmingCheckReport.canArm) {
                             if (_activeVehicle.healthAndArmingCheckReport.hasWarningsOrErrors) {
-                                _mainStatusBGColor = "yellow"
+                                _statusIndicatorColor = "yellow"
                             }
                         } else {
-                            _mainStatusBGColor = "red"
+                            _statusIndicatorColor = "red"
                         }
                     }
 
@@ -82,36 +93,36 @@ RowLayout {
                     if (_healthAndArmingChecksSupported) {
                         if (_activeVehicle.healthAndArmingCheckReport.canArm) {
                             if (_activeVehicle.healthAndArmingCheckReport.hasWarningsOrErrors) {
-                                _mainStatusBGColor = "yellow"
+                                _statusIndicatorColor = "yellow"
                             } else {
-                                _mainStatusBGColor = "green"
+                                _statusIndicatorColor = "green"
                             }
                             return mainStatusLabel._readyToFlyText
                         } else {
-                            _mainStatusBGColor = "red"
+                            _statusIndicatorColor = "red"
                             return mainStatusLabel._notReadyToFlyText
                         }
                     } else if (_activeVehicle.readyToFlyAvailable) {
                         if (_activeVehicle.readyToFly) {
-                            _mainStatusBGColor = "green"
+                            _statusIndicatorColor = "green"
                             return mainStatusLabel._readyToFlyText
                         } else {
-                            _mainStatusBGColor = "yellow"
+                            _statusIndicatorColor = "yellow"
                             return mainStatusLabel._notReadyToFlyText
                         }
                     } else {
                         // Best we can do is determine readiness based on AutoPilot component setup and health indicators from SYS_STATUS
                         if (_activeVehicle.allSensorsHealthy && _activeVehicle.autopilotPlugin.setupComplete) {
-                            _mainStatusBGColor = "green"
+                            _statusIndicatorColor = "green"
                             return mainStatusLabel._readyToFlyText
                         } else {
-                            _mainStatusBGColor = "yellow"
+                            _statusIndicatorColor = "yellow"
                             return mainStatusLabel._notReadyToFlyText
                         }
                     }
                 }
             } else {
-                _mainStatusBGColor = qgcPal.brandingPurple
+                _statusIndicatorColor = "#23291a"
                 return mainStatusLabel._disconnectedText
             }
         }

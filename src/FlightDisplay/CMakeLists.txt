@@ -10,6 +10,8 @@ qt_add_qml_module(FlightDisplayModule
     VERSION 1.0
     RESOURCE_PREFIX /qml
     QML_FILES
+        AutoMissionButton.qml
+        AutoMissionPanel.qml
         CustomGuidedActionsController.qml
         DefaultChecklist.qml
         FixedWingChecklist.qml
@@ -65,6 +67,8 @@ qt_add_qml_module(FlightDisplayModule
         RoverChecklist.qml
         SubChecklist.qml
         TelemetryValuesBar.qml
+        TerminalGuidanceButton.qml
+        TerminalGuidancePanel.qml
         TerrainProgress.qml
         VehicleWarnings.qml
         VirtualJoystick.qml

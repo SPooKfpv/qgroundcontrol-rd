@@ -1,0 +1,44 @@
+{
+    "version":      1,
+    "fileType":  "FactMetaData",
+    "QGC.MetaData.Facts":
+[
+{
+    "name":             "failsafeMode",
+    "shortDesc": "Failsafe mode for ArduPilot vehicles",
+    "longDesc":  "Specifies the failsafe action applied to ArduPilot vehicles when they connect. Rally Point uses RTL with rally points enabled. RTL Home uses standard RTL. Loiter Hold continues/loiters in place.",
+    "type":             "uint32",
+    "enumStrings":      "Rally Point,RTL Home,Loiter Hold",
+    "enumValues":       "0,1,2",
+    "default":     1
+},
+{
+    "name":             "selectedVehicle",
+    "shortDesc": "Selected vehicle configuration",
+    "longDesc":  "Filename (without .json) of the currently selected vehicle from config/vehicles/.",
+    "type":             "string",
+    "default":     ""
+},
+{
+    "name":             "udpPort",
+    "shortDesc": "UDP connection port",
+    "longDesc":  "UDP port used for the default vehicle connection. Applied to the auto-connect UDP listener on startup.",
+    "type":             "uint32",
+    "default":     14555
+},
+{
+    "name":             "checklistEnabled",
+    "shortDesc": "Enable pre-flight checklist",
+    "longDesc":  "If enabled, the selected JSON checklist is active for pre-flight review.",
+    "type":             "bool",
+    "default":     false
+},
+{
+    "name":             "selectedChecklist",
+    "shortDesc": "Selected pre-flight checklist",
+    "longDesc":  "Filename (without .json) of the currently selected checklist from config/checklists/.",
+    "type":             "string",
+    "default":     ""
+}
+]
+}

@@ -61,7 +61,16 @@ ApplicationWindow {
                 nextPromptIdIndex++
             } else {
                 currentDialog = null
-                showPreFlightChecklistIfNeeded()
+                // Show the pre-flight setup dialog on every startup before making the main window interactive.
+                // Guard against creation failure — if it returns null, fall through to the existing checklist flow.
+                var preFlightDialog = preFlightSetupDialogComponent.createObject(mainWindow)
+                if (preFlightDialog) {
+                    preFlightDialog.closed.connect(showPreFlightChecklistIfNeeded)
+                    preFlightDialog.open()
+                } else {
+                    console.error("PreFlightSetupDialog: createObject failed — proceeding to main window")
+                    showPreFlightChecklistIfNeeded()
+                }
             }
         }
     }
@@ -85,6 +94,9 @@ ApplicationWindow {
 
         // Property to manage RemoteID quick access to settings page
         property bool               commingFromRIDIndicator:        false
+
+        // Pattern reference point set from map click — used by Auto Mission patterns
+        property var                patternReferencePoint:          null
     }
 
     /// Default color palette used throughout the UI
@@ -143,6 +155,11 @@ ApplicationWindow {
         toolDrawerLoader.item.showParametersPanel()
     }
 
+    function showVehicleConfigJoystickPage() {
+        showVehicleConfig()
+        toolDrawerLoader.item.showJoystickPanel()
+    }
+
     function showKnownVehicleComponentConfigPage(knownVehicleComponent) {
         showVehicleConfig()
         let vehicleComponent = globals.activeVehicle.autopilotPlugin.findKnownVehicleComponent(knownVehicleComponent)
@@ -152,7 +169,7 @@ ApplicationWindow {
     }
 
     function showSettingsTool(settingsPage = "") {
-        showTool(qsTr("Application Settings"), "qrc:/qml/QGroundControl/Controls/AppSettings.qml", "/res/QGCLogoWhite")
+        showTool(qsTr("Application Settings"), "qrc:/qml/QGroundControl/Controls/AppSettings.qml", "/res/appsettings.png")
         if (settingsPage !== "") {
             toolDrawerLoader.item.showSettingsPage(settingsPage)
         }
@@ -174,6 +191,12 @@ ApplicationWindow {
         id: simpleMessageDialogComponent
 
         QGCSimpleMessageDialog {
+        }
+    }
+
+    Component {
+        id: preFlightSetupDialogComponent
+        PreFlightSetupDialog {
         }
     }
 
@@ -373,7 +396,7 @@ ApplicationWindow {
                         height:             toolSelectDialog._toolButtonHeight
                         Layout.fillWidth:   true
                         text:               qsTr("Application Settings")
-                        imageResource:      "/res/QGCLogoFull.svg"
+                        imageResource:      "/res/appsettings.png"
                         imageColor:         "transparent"
                         visible:            !QGroundControl.corePlugin.options.combineSettingsAndSetup
                         onClicked: {

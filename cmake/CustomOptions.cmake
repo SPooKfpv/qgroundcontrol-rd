@@ -9,10 +9,11 @@ include(CMakeDependentOption)
 # Application Metadata
 # ============================================================================
 
-set(QGC_APP_NAME "QGroundControl" CACHE STRING "Application name")
-set(QGC_APP_COPYRIGHT "Copyright (c) 2025 QGroundControl. All rights reserved." CACHE STRING "Copyright notice")
+set(QGC_APP_NAME "QGroundControl" CACHE STRING "Application name (used as CMake target - no spaces)")
+set(QGC_APP_DISPLAY_NAME "Rift qGround Control" CACHE STRING "Display name shown in UI and window title")
+set(QGC_APP_COPYRIGHT "Copyright (c) 2025 Rift qGround Control. All rights reserved." CACHE STRING "Copyright notice")
 set(QGC_APP_DESCRIPTION "Open Source Ground Control App" CACHE STRING "Application description")
-set(QGC_ORG_NAME "QGroundControl" CACHE STRING "Organization name")
+set(QGC_ORG_NAME "Rift qGround Control" CACHE STRING "Organization name")
 set(QGC_ORG_DOMAIN "qgroundcontrol.com" CACHE STRING "Organization domain")
 set(QGC_PACKAGE_NAME "org.mavlink.qgroundcontrol" CACHE STRING "Package identifier")
 
@@ -131,7 +132,7 @@ set(QGC_APPIMAGE_APPDATA_DEVELOPER "qgroundcontrol" CACHE STRING "AppImage devel
 # Windows Platform
 # ----------------------------------------------------------------------------
 set(QGC_WINDOWS_INSTALL_HEADER_PATH "${CMAKE_SOURCE_DIR}/deploy/windows/installheader.bmp" CACHE FILEPATH "Windows installer header image")
-set(QGC_WINDOWS_ICON_PATH "${CMAKE_SOURCE_DIR}/deploy/windows/WindowsQGC.ico" CACHE FILEPATH "Windows application icon")
+set(QGC_WINDOWS_ICON_PATH "${CMAKE_SOURCE_DIR}/resources/icons/qgroundcontrol.ico" CACHE FILEPATH "Windows application icon")
 set(QGC_WINDOWS_RESOURCE_FILE_PATH "${CMAKE_SOURCE_DIR}/deploy/windows/QGroundControl.rc" CACHE FILEPATH "Windows resource file")
 
 # ============================================================================

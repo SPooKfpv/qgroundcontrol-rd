@@ -97,6 +97,13 @@ Rectangle {
         }
     }
 
+    function showJoystickPanel() {
+        if (mainWindow.allowViewSwitch()) {
+            joystickButton.checked = true
+            panelLoader.setSource("qrc:/qml/QGroundControl/VehicleSetup/JoystickConfig.qml")
+        }
+    }
+
     Component.onCompleted: _showSummaryPanel()
 
     Connections {

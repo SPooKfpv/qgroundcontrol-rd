@@ -336,6 +336,41 @@ if(LINUX)
 endif()
 
 # ============================================================================
+# Theme Configuration
+# ============================================================================
+
+# Copy theme.json to build output so it can be edited without rebuilding
+add_custom_command(
+    TARGET ${CMAKE_PROJECT_NAME} POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E make_directory "$<TARGET_FILE_DIR:${CMAKE_PROJECT_NAME}>/config"
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different
+        "${CMAKE_SOURCE_DIR}/config/theme.json"
+        "$<TARGET_FILE_DIR:${CMAKE_PROJECT_NAME}>/config/theme.json"
+    COMMENT "Copying theme.json to build output"
+)
+
+# Copy config/checklists/ directory to build output so JSON files are discoverable at runtime.
+# Uses copy_directory so user-added .json files are copied automatically without CMake edits.
+add_custom_command(
+    TARGET ${CMAKE_PROJECT_NAME} POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E make_directory "$<TARGET_FILE_DIR:${CMAKE_PROJECT_NAME}>/config/checklists"
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+        "${CMAKE_SOURCE_DIR}/config/checklists"
+        "$<TARGET_FILE_DIR:${CMAKE_PROJECT_NAME}>/config/checklists"
+    COMMENT "Copying config/checklists/ to build output"
+)
+
+# Copy config/vehicles/ directory to build output so JSON files are discoverable at runtime.
+add_custom_command(
+    TARGET ${CMAKE_PROJECT_NAME} POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E make_directory "$<TARGET_FILE_DIR:${CMAKE_PROJECT_NAME}>/config/vehicles"
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+        "${CMAKE_SOURCE_DIR}/config/vehicles"
+        "$<TARGET_FILE_DIR:${CMAKE_PROJECT_NAME}>/config/vehicles"
+    COMMENT "Copying config/vehicles/ to build output"
+)
+
+# ============================================================================
 # Installation & Packaging
 # ============================================================================
 

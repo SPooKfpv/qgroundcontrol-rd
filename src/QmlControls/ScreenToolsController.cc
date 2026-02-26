@@ -16,7 +16,9 @@
 #include "QGCLoggingCategory.h"
 #include "SettingsManager.h"
 #include "AppSettings.h"
+#include "ThemeLoader.h"
 
+#include <QtCore/QJsonObject>
 #include <QtGui/QCursor>
 #include <QtGui/QFontDatabase>
 #include <QtGui/QFontMetrics>
@@ -72,15 +74,27 @@ QString ScreenToolsController::iOSDevice()
 
 QString ScreenToolsController::fixedFontFamily()
 {
+    const QJsonObject fontsObj = ThemeLoader::fonts();
+    const QString configFixed = fontsObj.value(QStringLiteral("fixedFamily")).toString();
+    if (!configFixed.isEmpty()) {
+        return configFixed;
+    }
     return QFontDatabase::systemFont(QFontDatabase::FixedFont).family();
 }
 
 QString ScreenToolsController::normalFontFamily()
 {
+    const QJsonObject fontsObj = ThemeLoader::fonts();
+    const QString configNormal = fontsObj.value(QStringLiteral("normalFamily")).toString();
+
     //-- See App.SettinsGroup.json for index
     const int langID = SettingsManager::instance()->appSettings()->qLocaleLanguage()->rawValue().toInt();
     if (langID == QLocale::Korean) {
         return QStringLiteral("NanumGothic");
+    }
+
+    if (!configNormal.isEmpty()) {
+        return configNormal;
     }
 
     return QStringLiteral("Open Sans");

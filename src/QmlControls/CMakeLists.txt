@@ -5,6 +5,10 @@
 
 target_sources(${CMAKE_PROJECT_NAME}
     PRIVATE
+        ChecklistFileManager.cc
+        ChecklistFileManager.h
+        VehicleConfigManager.cc
+        VehicleConfigManager.h
         EditPositionDialogController.cc
         EditPositionDialogController.h
         FactValueGrid.cc
@@ -56,6 +60,8 @@ target_sources(${CMAKE_PROJECT_NAME}
         ScreenToolsController.h
         TerrainProfile.cc
         TerrainProfile.h
+        ThemeLoader.cc
+        ThemeLoader.h
         ToolStripAction.cc
         ToolStripAction.h
         ToolStripActionList.cc
@@ -122,6 +128,7 @@ qt_add_qml_module(QGroundControlControlsModule
         PreFlightCheckButton.qml
         PreFlightCheckGroup.qml
         PreFlightCheckModel.qml
+        PreFlightSetupDialog.qml
         QGCButton.qml
         QGCCheckBox.qml
         QGCCheckBoxSlider.qml

@@ -37,6 +37,7 @@ class NTRIPSettings;
 class VideoSettings;
 class Viewer3DSettings;
 class MavlinkSettings;
+class PreFlightSetupSettings;
 class FactMetaData;
 
 Q_DECLARE_LOGGING_CATEGORY(SettingsManagerLog)
@@ -70,6 +71,7 @@ class SettingsManager : public QObject
     Q_MOC_INCLUDE("NTRIPSettings.h")
     Q_MOC_INCLUDE("VideoSettings.h")
     Q_MOC_INCLUDE("MavlinkSettings.h")
+    Q_MOC_INCLUDE("PreFlightSetupSettings.h")
 #ifdef QGC_VIEWER3D
     Q_MOC_INCLUDE("Viewer3DSettings.h")
 #endif
@@ -96,6 +98,7 @@ class SettingsManager : public QObject
     Q_PROPERTY(QObject *ntripSettings                   READ ntripSettings                  CONSTANT)
     Q_PROPERTY(QObject *videoSettings                   READ videoSettings                  CONSTANT)
     Q_PROPERTY(QObject *mavlinkSettings                 READ mavlinkSettings                CONSTANT)
+    Q_PROPERTY(QObject *preFlightSetupSettings          READ preFlightSetupSettings         CONSTANT)
 #ifdef QGC_VIEWER3D
     Q_PROPERTY(QObject *viewer3DSettings                READ viewer3DSettings               CONSTANT)
 #endif
@@ -137,6 +140,7 @@ public:
     NTRIPSettings *ntripSettings() const;
     VideoSettings *videoSettings() const;
     MavlinkSettings *mavlinkSettings() const;
+    PreFlightSetupSettings *preFlightSetupSettings() const;
 #ifdef QGC_VIEWER3D
     Viewer3DSettings *viewer3DSettings() const;
 #endif
@@ -167,6 +171,7 @@ private:
     NTRIPSettings *_ntripSettings = nullptr;
     VideoSettings *_videoSettings = nullptr;
     MavlinkSettings *_mavlinkSettings = nullptr;
+    PreFlightSetupSettings *_preFlightSetupSettings = nullptr;
 #ifdef QGC_VIEWER3D
     Viewer3DSettings *_viewer3DSettings = nullptr;
 #endif

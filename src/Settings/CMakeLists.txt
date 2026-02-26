@@ -31,6 +31,8 @@ target_sources(${CMAKE_PROJECT_NAME}
         MavlinkSettings.h
         OfflineMapsSettings.cc
         OfflineMapsSettings.h
+        PreFlightSetupSettings.cc
+        PreFlightSetupSettings.h
         PlanViewSettings.cc
         PlanViewSettings.h
         RemoteIDSettings.cc

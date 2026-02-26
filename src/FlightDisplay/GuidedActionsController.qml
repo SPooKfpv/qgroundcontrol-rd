@@ -281,18 +281,20 @@ Item {
             console.log("showStartMission", showStartMission)
         }
         _outputState()
-        if (showStartMission) {
-            confirmAction(actionStartMission)
-        }
+        // Auto-popup disabled — Start Mission available via Auto toolstrip button
+        // if (showStartMission) {
+        //     confirmAction(actionStartMission)
+        // }
     }
     onShowContinueMissionChanged: {
         if (_isGuidedActionsControllerLogEnabled()) {
             console.log("showContinueMission", showContinueMission)
         }
         _outputState()
-        if (showContinueMission) {
-            confirmAction(actionContinueMission)
-        }
+        // Auto-popup disabled — Continue Mission available via Auto toolstrip button
+        // if (showContinueMission) {
+        //     confirmAction(actionContinueMission)
+        // }
     }
     onShowRTLChanged: {
         if (_isGuidedActionsControllerLogEnabled()) {

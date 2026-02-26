@@ -71,6 +71,8 @@ target_sources(${CMAKE_PROJECT_NAME}
         pch.h
         QGCApplication.cc
         QGCApplication.h
+        SplashScreen.cc
+        SplashScreen.h
 )
 
 # Platform-specific sources
@@ -162,6 +164,10 @@ if(NOT QGC_AIRLINK_DISABLED)
     target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE AirLinkModule)
 endif()
 
+if(WIN32)
+    target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE dwmapi)
+endif()
+
 # ============================================================================
 # Compile Definitions
 # ============================================================================
@@ -170,6 +176,7 @@ endif()
 target_compile_definitions(${CMAKE_PROJECT_NAME}
     PRIVATE
         QGC_APP_NAME="${QGC_APP_NAME}"
+        QGC_APP_DISPLAY_NAME="${QGC_APP_DISPLAY_NAME}"
         QGC_ORG_NAME="${QGC_ORG_NAME}"
         QGC_ORG_DOMAIN="${QGC_ORG_DOMAIN}"
         QGC_APP_VERSION_STR="${QGC_APP_VERSION_STR}"

@@ -13,8 +13,10 @@
 
 #include "QGCPalette.h"
 #include "QGCCorePlugin.h"
+#include "ThemeLoader.h"
 
 #include <QtCore/QDebug>
+#include <QtCore/QJsonObject>
 
 QList<QGCPalette*>   QGCPalette::_paletteObjects;
 
@@ -107,6 +109,51 @@ void QGCPalette::_buildMap()
     DECLARE_QGC_COLOR(sliderUTMSP,        "#9370db", "#9370db", "#9370db", "#9370db");
     DECLARE_QGC_COLOR(successNotifyUTMSP, "#3cb371", "#3cb371", "#3cb371", "#3cb371");
 #endif
+
+    // Apply user theme overrides from config/theme.json
+    _applyThemeOverrides();
+}
+
+void QGCPalette::_applyThemeOverrides()
+{
+    const QJsonObject colorsObj = ThemeLoader::colors();
+    if (colorsObj.isEmpty()) {
+        return;
+    }
+
+    for (auto it = colorsObj.begin(); it != colorsObj.end(); ++it) {
+        const QString colorName = it.key();
+        const QJsonObject colorDef = it.value().toObject();
+
+        // Skip entries without light/dark definitions
+        const QJsonObject lightObj = colorDef.value(QStringLiteral("light")).toObject();
+        const QJsonObject darkObj = colorDef.value(QStringLiteral("dark")).toObject();
+        if (lightObj.isEmpty() && darkObj.isEmpty()) {
+            continue;
+        }
+
+        if (!lightObj.isEmpty()) {
+            const QString lightEnabled = lightObj.value(QStringLiteral("enabled")).toString();
+            const QString lightDisabled = lightObj.value(QStringLiteral("disabled")).toString();
+            if (!lightEnabled.isEmpty()) {
+                _colorInfoMap[Light][ColorGroupEnabled][colorName] = QColor(lightEnabled);
+            }
+            if (!lightDisabled.isEmpty()) {
+                _colorInfoMap[Light][ColorGroupDisabled][colorName] = QColor(lightDisabled);
+            }
+        }
+
+        if (!darkObj.isEmpty()) {
+            const QString darkEnabled = darkObj.value(QStringLiteral("enabled")).toString();
+            const QString darkDisabled = darkObj.value(QStringLiteral("disabled")).toString();
+            if (!darkEnabled.isEmpty()) {
+                _colorInfoMap[Dark][ColorGroupEnabled][colorName] = QColor(darkEnabled);
+            }
+            if (!darkDisabled.isEmpty()) {
+                _colorInfoMap[Dark][ColorGroupDisabled][colorName] = QColor(darkDisabled);
+            }
+        }
+    }
 }
 
 void QGCPalette::setColorGroupEnabled(bool enabled)

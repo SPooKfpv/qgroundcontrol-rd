@@ -182,6 +182,7 @@ signals:
 
 private:
     static void _buildMap                   ();
+    static void _applyThemeOverrides        ();
     static void _signalPaletteChangeToAll   ();
     void        _signalPaletteChanged       ();
     void        _themeChanged               ();

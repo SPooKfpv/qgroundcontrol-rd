@@ -1,0 +1,17 @@
+{
+    "serialNum": 1,
+    "name": "Wåsp 1.7",
+    "type": "multirotor",
+    "description": "Wåsp 1.7 quadcopter platform with ArduPilot firmware",
+    "defaultChecklist": "wasp-1.7",
+    "defaultUdpPort": 14555,
+    "firmware": "ArduPilot",
+    "specs": {
+        "motors": 4,
+        "maxTakeoffWeight": "2.5 kg",
+        "maxFlightTime": "25 min",
+        "maxRange": "3 km",
+        "maxAltitude": "120 m AGL",
+        "maxWindSpeed": "10 m/s"
+    }
+}

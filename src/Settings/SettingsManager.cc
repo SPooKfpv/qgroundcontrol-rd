@@ -32,6 +32,7 @@
 #include "NTRIPSettings.h"
 #include "VideoSettings.h"
 #include "MavlinkSettings.h"
+#include "PreFlightSetupSettings.h"
 #ifdef QGC_VIEWER3D
 #include "Viewer3DSettings.h"
 #endif
@@ -93,6 +94,7 @@ void SettingsManager::init()
     _ntripSettings = new NTRIPSettings(this);
     _videoSettings = new VideoSettings(this);
     _mavlinkSettings = new MavlinkSettings(this);
+    _preFlightSetupSettings = new PreFlightSetupSettings(this);
 #ifdef QGC_VIEWER3D
     _viewer3DSettings = new Viewer3DSettings(this);
 #endif
@@ -125,6 +127,7 @@ UnitsSettings *SettingsManager::unitsSettings() const { return _unitsSettings; }
 NTRIPSettings *SettingsManager::ntripSettings() const { return _ntripSettings; }
 VideoSettings *SettingsManager::videoSettings() const { return _videoSettings; }
 MavlinkSettings *SettingsManager::mavlinkSettings() const { return _mavlinkSettings; }
+PreFlightSetupSettings *SettingsManager::preFlightSetupSettings() const { return _preFlightSetupSettings; }
 #ifdef QGC_VIEWER3D
 Viewer3DSettings *SettingsManager::viewer3DSettings() const { return _viewer3DSettings; }
 #endif

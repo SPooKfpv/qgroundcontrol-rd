@@ -1,0 +1,245 @@
+{
+    "fonts": {
+        "normalFamily": "Open Sans",
+        "fixedFamily": "",
+        "defaultPointSize": 0
+    },
+
+    "colors": {
+        "window": {
+            "description": "Main application background",
+            "light":    { "enabled": "#ffffff", "disabled": "#ffffff" },
+            "dark":     { "enabled": "#222222", "disabled": "#222222" }
+        },
+        "windowTransparent": {
+            "description": "Semi-transparent overlay backgrounds (panels on top of map)",
+            "light":    { "enabled": "#ccffffff", "disabled": "#ccffffff" },
+            "dark":     { "enabled": "#cc222222", "disabled": "#cc222222" }
+        },
+        "windowShadeLight": {
+            "description": "Light shade for secondary panels and section headers",
+            "light":    { "enabled": "#828282", "disabled": "#909090" },
+            "dark":     { "enabled": "#626262", "disabled": "#707070" }
+        },
+        "windowShade": {
+            "description": "Panel and section backgrounds (settings panels, dialogs)",
+            "light":    { "enabled": "#d9d9d9", "disabled": "#d9d9d9" },
+            "dark":     { "enabled": "#333333", "disabled": "#333333" }
+        },
+        "windowShadeDark": {
+            "description": "Darker shade for nested panels and inset areas",
+            "light":    { "enabled": "#bdbdbd", "disabled": "#bdbdbd" },
+            "dark":     { "enabled": "#282828", "disabled": "#282828" }
+        },
+        "text": {
+            "description": "Primary text color used throughout the UI",
+            "light":    { "enabled": "#000000", "disabled": "#9d9d9d" },
+            "dark":     { "enabled": "#ffffff", "disabled": "#707070" }
+        },
+        "windowTransparentText": {
+            "description": "Text on semi-transparent overlay backgrounds",
+            "light":    { "enabled": "#000000", "disabled": "#9d9d9d" },
+            "dark":     { "enabled": "#ffffff", "disabled": "#707070" }
+        },
+        "warningText": {
+            "description": "Warning and error message text",
+            "light":    { "enabled": "#cc0808", "disabled": "#cc0808" },
+            "dark":     { "enabled": "#f85761", "disabled": "#f85761" }
+        },
+        "button": {
+            "description": "Standard button background",
+            "light":    { "enabled": "#ffffff", "disabled": "#ffffff" },
+            "dark":     { "enabled": "#626270", "disabled": "#707070" }
+        },
+        "buttonBorder": {
+            "description": "Border around standard buttons",
+            "light":    { "enabled": "#d9d9d9", "disabled": "#ffffff" },
+            "dark":     { "enabled": "#adadb8", "disabled": "#707070" }
+        },
+        "buttonText": {
+            "description": "Text on standard buttons",
+            "light":    { "enabled": "#000000", "disabled": "#9d9d9d" },
+            "dark":     { "enabled": "#ffffff", "disabled": "#A6A6A6" }
+        },
+        "buttonHighlight": {
+            "description": "Highlighted or hovered button background",
+            "light":    { "enabled": "#946120", "disabled": "#e4e4e4" },
+            "dark":     { "enabled": "#fff291", "disabled": "#3a3a3a" }
+        },
+        "buttonHighlightText": {
+            "description": "Text on highlighted or hovered buttons",
+            "light":    { "enabled": "#ffffff", "disabled": "#2c2c2c" },
+            "dark":     { "enabled": "#000000", "disabled": "#2c2c2c" }
+        },
+        "primaryButton": {
+            "description": "Primary action button background (confirm, save, apply)",
+            "light":    { "enabled": "#8cb3be", "disabled": "#585858" },
+            "dark":     { "enabled": "#8cb3be", "disabled": "#585858" }
+        },
+        "primaryButtonText": {
+            "description": "Text on primary action buttons",
+            "light":    { "enabled": "#000000", "disabled": "#2c2c2c" },
+            "dark":     { "enabled": "#000000", "disabled": "#2c2c2c" }
+        },
+        "textField": {
+            "description": "Text input field background",
+            "light":    { "enabled": "#ffffff", "disabled": "#ffffff" },
+            "dark":     { "enabled": "#ffffff", "disabled": "#707070" }
+        },
+        "textFieldText": {
+            "description": "Text inside input fields",
+            "light":    { "enabled": "#000000", "disabled": "#808080" },
+            "dark":     { "enabled": "#000000", "disabled": "#000000" }
+        },
+        "mapButton": {
+            "description": "Buttons overlaid on the map view",
+            "light":    { "enabled": "#000000", "disabled": "#585858" },
+            "dark":     { "enabled": "#000000", "disabled": "#585858" }
+        },
+        "mapButtonHighlight": {
+            "description": "Highlighted map overlay buttons",
+            "light":    { "enabled": "#be781c", "disabled": "#585858" },
+            "dark":     { "enabled": "#be781c", "disabled": "#585858" }
+        },
+        "mapIndicator": {
+            "description": "Map position indicators and markers",
+            "light":    { "enabled": "#be781c", "disabled": "#585858" },
+            "dark":     { "enabled": "#be781c", "disabled": "#585858" }
+        },
+        "mapIndicatorChild": {
+            "description": "Secondary/child map position indicators",
+            "light":    { "enabled": "#766043", "disabled": "#585858" },
+            "dark":     { "enabled": "#766043", "disabled": "#585858" }
+        },
+        "colorGreen": {
+            "description": "Status indicator: good, success, armed, connected",
+            "light":    { "enabled": "#008f2d", "disabled": "#008f2d" },
+            "dark":     { "enabled": "#00e04b", "disabled": "#00e04b" }
+        },
+        "colorYellow": {
+            "description": "Status indicator: caution, needs attention",
+            "light":    { "enabled": "#a2a200", "disabled": "#a2a200" },
+            "dark":     { "enabled": "#ffff00", "disabled": "#ffff00" }
+        },
+        "colorYellowGreen": {
+            "description": "Status indicator: between good and caution",
+            "light":    { "enabled": "#799f26", "disabled": "#799f26" },
+            "dark":     { "enabled": "#9dbe2f", "disabled": "#9dbe2f" }
+        },
+        "colorOrange": {
+            "description": "Status indicator: warning, degraded",
+            "light":    { "enabled": "#bf7539", "disabled": "#bf7539" },
+            "dark":     { "enabled": "#de8500", "disabled": "#de8500" }
+        },
+        "colorRed": {
+            "description": "Status indicator: error, danger, critical",
+            "light":    { "enabled": "#b52b2b", "disabled": "#b52b2b" },
+            "dark":     { "enabled": "#f32836", "disabled": "#f32836" }
+        },
+        "colorGrey": {
+            "description": "Status indicator: inactive, neutral, unknown",
+            "light":    { "enabled": "#808080", "disabled": "#808080" },
+            "dark":     { "enabled": "#bfbfbf", "disabled": "#bfbfbf" }
+        },
+        "colorBlue": {
+            "description": "Status indicator: informational, link, selection",
+            "light":    { "enabled": "#1a72ff", "disabled": "#1a72ff" },
+            "dark":     { "enabled": "#536dff", "disabled": "#536dff" }
+        },
+        "alertBackground": {
+            "description": "Alert banner and notification background",
+            "light":    { "enabled": "#eecc44", "disabled": "#eecc44" },
+            "dark":     { "enabled": "#eecc44", "disabled": "#eecc44" }
+        },
+        "alertBorder": {
+            "description": "Alert banner border",
+            "light":    { "enabled": "#808080", "disabled": "#808080" },
+            "dark":     { "enabled": "#808080", "disabled": "#808080" }
+        },
+        "alertText": {
+            "description": "Text inside alert banners",
+            "light":    { "enabled": "#000000", "disabled": "#000000" },
+            "dark":     { "enabled": "#000000", "disabled": "#000000" }
+        },
+        "missionItemEditor": {
+            "description": "Mission item editor panel background",
+            "light":    { "enabled": "#dbfef8", "disabled": "#585858" },
+            "dark":     { "enabled": "#585d83", "disabled": "#585858" }
+        },
+        "toolStripHoverColor": {
+            "description": "Tool strip button hover state background",
+            "light":    { "enabled": "#9D9D9D", "disabled": "#585858" },
+            "dark":     { "enabled": "#585d83", "disabled": "#585858" }
+        },
+        "statusFailedText": {
+            "description": "Text color for failed status items",
+            "light":    { "enabled": "#000000", "disabled": "#9d9d9d" },
+            "dark":     { "enabled": "#ffffff", "disabled": "#707070" }
+        },
+        "statusPassedText": {
+            "description": "Text color for passed status items",
+            "light":    { "enabled": "#000000", "disabled": "#9d9d9d" },
+            "dark":     { "enabled": "#ffffff", "disabled": "#707070" }
+        },
+        "statusPendingText": {
+            "description": "Text color for pending status items",
+            "light":    { "enabled": "#000000", "disabled": "#9d9d9d" },
+            "dark":     { "enabled": "#ffffff", "disabled": "#707070" }
+        },
+        "toolbarBackground": {
+            "description": "Main top toolbar background",
+            "light":    { "enabled": "#00ffffff", "disabled": "#00ffffff" },
+            "dark":     { "enabled": "#00222222", "disabled": "#00222222" }
+        },
+        "toolbarDivider": {
+            "description": "Divider lines in the toolbar",
+            "light":    { "enabled": "#00000000", "disabled": "#00000000" },
+            "dark":     { "enabled": "#00000000", "disabled": "#00000000" }
+        },
+        "groupBorder": {
+            "description": "Border around grouped UI elements and sections",
+            "light":    { "enabled": "#bbbbbb", "disabled": "#bbbbbb" },
+            "dark":     { "enabled": "#707070", "disabled": "#707070" }
+        },
+        "brandingPurple": {
+            "description": "Branding accent purple (same in both themes)",
+            "light":    { "enabled": "#4A2C6D", "disabled": "#4A2C6D" },
+            "dark":     { "enabled": "#4A2C6D", "disabled": "#4A2C6D" }
+        },
+        "brandingBlue": {
+            "description": "Branding accent blue (same in both themes)",
+            "light":    { "enabled": "#6045c5", "disabled": "#48D6FF" },
+            "dark":     { "enabled": "#6045c5", "disabled": "#48D6FF" }
+        },
+        "toolStripFGColor": {
+            "description": "Tool strip icon and text foreground (same in both themes)",
+            "light":    { "enabled": "#ffffff", "disabled": "#707070" },
+            "dark":     { "enabled": "#ffffff", "disabled": "#707070" }
+        },
+        "mapWidgetBorderLight": {
+            "description": "Light border around map widgets (single color, all states)",
+            "light":    { "enabled": "#ffffff", "disabled": "#ffffff" },
+            "dark":     { "enabled": "#ffffff", "disabled": "#ffffff" }
+        },
+        "mapWidgetBorderDark": {
+            "description": "Dark border around map widgets (single color, all states)",
+            "light":    { "enabled": "#000000", "disabled": "#000000" },
+            "dark":     { "enabled": "#000000", "disabled": "#000000" }
+        },
+        "mapMissionTrajectory": {
+            "description": "Mission flight path line drawn on the map",
+            "light":    { "enabled": "#be781c", "disabled": "#be781c" },
+            "dark":     { "enabled": "#be781c", "disabled": "#be781c" }
+        },
+        "surveyPolygonInterior": {
+            "description": "Fill color for survey polygon areas on map",
+            "light":    { "enabled": "#008000", "disabled": "#008000" },
+            "dark":     { "enabled": "#008000", "disabled": "#008000" }
+        },
+        "surveyPolygonTerrainCollision": {
+            "description": "Highlight color when survey polygon intersects terrain",
+            "light":    { "enabled": "#ff0000", "disabled": "#ff0000" },
+            "dark":     { "enabled": "#ff0000", "disabled": "#ff0000" }
+        }
+    }
+}

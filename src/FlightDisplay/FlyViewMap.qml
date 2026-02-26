@@ -746,6 +746,26 @@ FlightMap {
                         }
                     }
 
+                    QGCButton {
+                        Layout.fillWidth:   true
+                        text:               qsTr("Set Rally Point")
+                        visible:            _activeVehicle
+                        onClicked: {
+                            mapClickDropPanel.close()
+                            _rallyPointController.addPoint(mapClickCoord)
+                            _rallyPointController.syncToVehicle()
+                        }
+                    }
+
+                    QGCButton {
+                        Layout.fillWidth:   true
+                        text:               qsTr("Set Pattern Reference Point")
+                        onClicked: {
+                            mapClickDropPanel.close()
+                            globals.patternReferencePoint = QtPositioning.coordinate(mapClickCoord.latitude, mapClickCoord.longitude)
+                        }
+                    }
+
                     ColumnLayout {
                         spacing: 0
                         QGCLabel { text: qsTr("Lat: %1").arg(mapClickCoord.latitude.toFixed(6)) }

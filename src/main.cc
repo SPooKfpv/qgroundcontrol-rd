@@ -13,8 +13,17 @@
 #include "QGCApplication.h"
 #include "QGCCommandLineParser.h"
 #include "QGCLogging.h"
+
+#ifdef Q_OS_WIN
+#include <windows.h>
+#include <dwmapi.h>
+#if !defined(NDEBUG)
+#include <cstdio>
+#endif
+#endif
 #include "Platform.h"
 #include "NTRIP.h"
+#include "SplashScreen.h"
 
 #if !defined(Q_OS_ANDROID) && !defined(Q_OS_IOS)
     #include <QtWidgets/QMessageBox>
@@ -32,6 +41,15 @@
 
 int main(int argc, char *argv[])
 {
+#if defined(Q_OS_WIN) && !defined(NDEBUG)
+    // Attach to parent console (if launched from cmd/terminal) so Qt
+    // debug/warning/critical messages are visible. When launched from Qt Creator,
+    // messages appear in the Application Output pane via OutputDebugString.
+    if (AttachConsole(ATTACH_PARENT_PROCESS)) {
+        (void)freopen("CONOUT$", "w", stdout);
+        (void)freopen("CONOUT$", "w", stderr);
+    }
+#endif
 #if 0
     // Useful for debugging specific unit tests
     char argument1[] = "--unittest:ParameterManagerTest";
@@ -49,7 +67,7 @@ int main(int argc, char *argv[])
                                      QCoreApplication::translate("main", "Error"),
                                      QCoreApplication::translate("main", "You are running %1 as root. "
                                                                          "You should not do this since it will cause other issues with %1. "
-                                                                         "%1 will now exit.<br/><br/>").arg(QGC_APP_NAME));
+                                                                         "%1 will now exit.<br/><br/>").arg(QGC_APP_DISPLAY_NAME));
         return -1;
     }
 #endif
@@ -57,7 +75,7 @@ int main(int argc, char *argv[])
     QGCCommandLineParser::CommandLineParseResult args;
     {
         const QCoreApplication pre(argc, argv);
-        QCoreApplication::setApplicationName(QStringLiteral(QGC_APP_NAME));
+        QCoreApplication::setApplicationName(QStringLiteral(QGC_APP_DISPLAY_NAME));
         QCoreApplication::setApplicationVersion(QStringLiteral(QGC_APP_VERSION_STR));
         args = QGCCommandLineParser::parseCommandLine();
         if (args.statusCode == QGCCommandLineParser::CommandLineParseResult::Status::Error) {
@@ -93,7 +111,35 @@ int main(int argc, char *argv[])
     // Late platform setup after app and logging exist
     Platform::setupPostApp();
 
+    // Show splash screen before initializing (hides main window until done)
+    SplashScreen *splash = nullptr;
+    if (!args.runningUnitTests && !args.simpleBootTest) {
+        splash = new SplashScreen();
+        splash->start();
+    }
+
     app.init();
+
+    // Hide the main window until splash finishes
+    if (splash) {
+        QQuickWindow *mainWindow = app.mainRootWindow();
+        if (mainWindow) {
+            mainWindow->setVisible(false);
+            QObject::connect(splash, &SplashScreen::finished, mainWindow, [mainWindow]() {
+                mainWindow->setVisible(true);
+            });
+#ifdef Q_OS_WIN
+            // Set Windows 11 title bar and border color to match app branding
+            if (HWND hwnd = reinterpret_cast<HWND>(mainWindow->winId())) {
+                constexpr DWORD DWMWA_BORDER_COLOR_VAL  = 34;
+                constexpr DWORD DWMWA_CAPTION_COLOR_VAL = 35;
+                COLORREF color = RGB(0x23, 0x29, 0x1a); // #23291a
+                DwmSetWindowAttribute(hwnd, DWMWA_CAPTION_COLOR_VAL, &color, sizeof(color));
+                DwmSetWindowAttribute(hwnd, DWMWA_BORDER_COLOR_VAL,  &color, sizeof(color));
+            }
+#endif
+        }
+    }
 
     int exitCode = 0;
     if (args.runningUnitTests) {

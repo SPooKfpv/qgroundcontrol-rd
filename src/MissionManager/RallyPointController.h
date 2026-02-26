@@ -37,6 +37,7 @@ public:
 
     Q_INVOKABLE void addPoint       (QGeoCoordinate point);
     Q_INVOKABLE void removePoint    (QObject* rallyPoint);
+    Q_INVOKABLE void syncToVehicle  (void) { sendToVehicle(); }
 
     void start                      (bool flyView) final;
     bool supported                  (void) const final;
