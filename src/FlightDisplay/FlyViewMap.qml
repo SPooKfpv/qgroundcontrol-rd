@@ -358,6 +358,23 @@ FlightMap {
         }
     }
 
+    // Pattern reference point marker
+    MapQuickItem {
+        id:             patternRefPointItem
+        visible:        globals.patternReferencePoint !== null
+        z:              QGroundControl.zOrderMapItems
+        anchorPoint.x:  sourceItem.anchorPointX
+        anchorPoint.y:  sourceItem.anchorPointY
+        coordinate:     globals.patternReferencePoint ? globals.patternReferencePoint : QtPositioning.coordinate()
+
+        sourceItem: MissionItemIndexLabel {
+            id:         patternRefLabel
+            checked:    true
+            index:      -1
+            label:      qsTr("P", "pattern reference point map item label")
+        }
+    }
+
     // Camera trigger points
     MapItemView {
         model: _activeVehicle ? _activeVehicle.cameraTriggerPoints : 0

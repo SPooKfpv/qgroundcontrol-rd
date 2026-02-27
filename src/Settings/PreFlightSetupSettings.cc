@@ -17,6 +17,7 @@ DECLARE_SETTINGGROUP(PreFlightSetup, "PreFlightSetup")
 }
 
 DECLARE_SETTINGSFACT(PreFlightSetupSettings, failsafeMode)
+DECLARE_SETTINGSFACT(PreFlightSetupSettings, loiterTime)
 DECLARE_SETTINGSFACT(PreFlightSetupSettings, selectedVehicle)
 DECLARE_SETTINGSFACT(PreFlightSetupSettings, udpPort)
 DECLARE_SETTINGSFACT(PreFlightSetupSettings, checklistEnabled)

@@ -68,10 +68,11 @@ void AutoPilotPlugin::parametersReadyPreChecks()
     }
 
     if (!_setupComplete) {
-        // Take the user to Vehicle Config Summary
-        qgcApp()->showVehicleConfig();
-        QCoreApplication::processEvents(QEventLoop::ExcludeUserInputEvents);
-        qgcApp()->showAppMessage(tr("One or more vehicle components require setup prior to flight."));
+        // Show warning dialog — user can choose to go to setup or dismiss
+        QObject *const rootQml = qgcApp()->mainRootWindow();
+        if (rootQml) {
+            QMetaObject::invokeMethod(rootQml, "_showSetupWarningDialog");
+        }
     }
 }
 

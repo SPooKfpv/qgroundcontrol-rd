@@ -25,7 +25,7 @@ import QGroundControl.FlightMap
 /// All properties defined here are visible to all QML pages.
 ApplicationWindow {
     id:             mainWindow
-    visible:        true
+    visible:        false
 
     property bool   _utmspSendActTrigger
 
@@ -36,7 +36,13 @@ ApplicationWindow {
 
     /// Saves main window position and size and re-opens it in the same position and size next time
     MainWindowSavedState {
+        id:     savedState
         window: mainWindow
+    }
+
+    /// Called from C++ to show the window with the correct saved visibility state.
+    function showWindow() {
+        savedState.applyPendingVisibility()
     }
 
     QtObject {
@@ -185,6 +191,16 @@ ApplicationWindow {
     // This variant is only meant to be called by QGCApplication
     function _showMessageDialog(dialogTitle, dialogText) {
         showMessageDialog(dialogTitle, dialogText)
+    }
+
+    // Called by AutoPilotPlugin when vehicle setup is incomplete
+    function _showSetupWarningDialog() {
+        showMessageDialog(
+            qsTr("Vehicle Setup Incomplete"),
+            qsTr("One or more vehicle components require setup prior to flight.\n\nGo to Vehicle Setup?"),
+            Dialog.Yes | Dialog.No,
+            function() { showVehicleConfig() }   // "Yes" = Go to Setup
+        )
     }
 
     Component {

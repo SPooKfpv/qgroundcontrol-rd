@@ -6,11 +6,20 @@
 {
     "name":             "failsafeMode",
     "shortDesc": "Failsafe mode for ArduPilot vehicles",
-    "longDesc":  "Specifies the failsafe action applied to ArduPilot vehicles when they connect. Rally Point uses RTL with rally points enabled. RTL Home uses standard RTL. Loiter Hold continues/loiters in place.",
+    "longDesc":  "Specifies the failsafe action applied to ArduPilot vehicles when they connect. Rally Point uses RTL with rally points enabled. RTL Home uses standard RTL. Land descends and lands at the current position.",
     "type":             "uint32",
-    "enumStrings":      "Rally Point,RTL Home,Loiter Hold",
+    "enumStrings":      "Rally Point,RTL Home,Land",
     "enumValues":       "0,1,2",
     "default":     1
+},
+{
+    "name":             "loiterTime",
+    "shortDesc": "Loiter time before landing (seconds)",
+    "longDesc":  "How long the vehicle loiters at the RTL destination before landing. Applied to ArduPilot RTL_LOIT_TIME parameter (Rally Point and RTL Home modes). Set to 0 to land immediately on arrival.",
+    "type":             "uint32",
+    "min":              0,
+    "max":              300,
+    "default":          30
 },
 {
     "name":             "selectedVehicle",

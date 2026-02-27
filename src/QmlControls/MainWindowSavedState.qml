@@ -18,6 +18,11 @@ import QGroundControl.Controls
 Item {
     property Window window
 
+    /// The desired visibility to apply when the window is first shown (by C++).
+    /// Saved here during onCompleted so we don't accidentally make the window
+    /// visible before the splash screen finishes.
+    property int pendingVisibility: Window.Windowed
+
     property bool _enabled: !ScreenTools.isMobile && !ScreenTools.fakeMobile && QGroundControl.corePlugin.options.enableSaveMainWindowPosition
 
     Settings {
@@ -36,12 +41,22 @@ Item {
         window.height = Math.min(150 * Screen.pixelDensity, Screen.height);
     }
 
+    /// Apply the saved visibility state. Called from C++ (or QML) after splash finishes.
+    function applyPendingVisibility() {
+        if (ScreenTools.isMobile && !ScreenTools.fakeMobile) {
+            window.showFullScreen()
+        } else {
+            window.visibility = pendingVisibility
+        }
+    }
+
     Component.onCompleted: {
         if (ScreenTools.fakeMobile) {
             window.width = ScreenTools.screenWidth
             window.height = ScreenTools.screenHeight
         } else if (ScreenTools.isMobile) {
-            window.showFullScreen();
+            // Don't call showFullScreen() here — deferred to applyPendingVisibility()
+            pendingVisibility = Window.FullScreen
         } else if (QGroundControl.corePlugin.options.enableSaveMainWindowPosition) {
             window.minimumWidth = Math.min(ScreenTools.defaultFontPixelWidth * 100, Screen.width)
             window.minimumHeight = Math.min(ScreenTools.defaultFontPixelWidth * 50, Screen.height)
@@ -50,7 +65,8 @@ Item {
                 window.y = s.y;
                 window.width = s.width;
                 window.height = s.height;
-                window.visibility = s.visibility;
+                // Don't set window.visibility here — deferred to applyPendingVisibility()
+                pendingVisibility = s.visibility
             } else {
                 _setDefaultDesktopWindowSize()
             }

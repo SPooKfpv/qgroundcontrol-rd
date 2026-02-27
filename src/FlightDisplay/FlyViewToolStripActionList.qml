@@ -52,6 +52,7 @@ ToolStripActionList {
         GuidedActionPause { },
         FlyViewAdditionalActionsButton { },
         TerminalGuidanceButton { },
+        FailsafeButton { },
         FlyViewGripperButton { }
     ]
 }

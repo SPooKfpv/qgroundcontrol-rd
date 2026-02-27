@@ -86,36 +86,61 @@ Item {
         id:                 mapHolder
         anchors.fill:       parent
 
-        FlyViewMap {
-            id:                     mapControl
-            planMasterController:   _planController
-            rightPanelWidth:        ScreenTools.defaultFontPixelHeight * 9
-            pipView:                _pipView
-            pipMode:                !_mainWindowIsMap
-            toolInsets:             customOverlay.totalToolInsets
-            mapName:                "FlightDisplayView"
-            enabled:                !viewer3DWindow.isOpen
+        // Map area takes remaining space left of the right panel
+        Item {
+            id:             mapArea
+            anchors.top:    parent.top
+            anchors.bottom: parent.bottom
+            anchors.left:   parent.left
+            anchors.right:  rightPanel.left
+
+            FlyViewMap {
+                id:                     mapControl
+                anchors.fill:           parent
+                planMasterController:   _planController
+                rightPanelWidth:        ScreenTools.defaultFontPixelHeight * 9
+                pipView:                _pipView
+                pipMode:                !_mainWindowIsMap
+                toolInsets:             customOverlay.totalToolInsets
+                mapName:                "FlightDisplayView"
+                enabled:                !viewer3DWindow.isOpen
+            }
+
+            FlyViewVideo {
+                id:         videoControl
+                pipView:    _pipView
+            }
+
+            PipView {
+                id:                     _pipView
+                anchors.left:           parent.left
+                anchors.bottom:         parent.bottom
+                anchors.margins:        _toolsMargin
+                item1IsFullSettingsKey: "MainFlyWindowIsMap"
+                item1:                  mapControl
+                item2:                  QGroundControl.videoManager.hasVideo ? videoControl : null
+                show:                   QGroundControl.videoManager.hasVideo && !QGroundControl.videoManager.fullScreen &&
+                                            (videoControl.pipState.state === videoControl.pipState.pipState || mapControl.pipState.state === mapControl.pipState.pipState)
+                z:                      QGroundControl.zOrderWidgets
+
+                property real leftEdgeBottomInset: visible ? width + anchors.margins : 0
+                property real bottomEdgeLeftInset: visible ? height + anchors.margins : 0
+            }
+
+            Viewer3D {
+                id: viewer3DWindow
+                anchors.fill: parent
+            }
         }
 
-        FlyViewVideo {
-            id:         videoControl
-            pipView:    _pipView
-        }
-
-        PipView {
-            id:                     _pipView
-            anchors.left:           parent.left
-            anchors.bottom:         parent.bottom
-            anchors.margins:        _toolsMargin
-            item1IsFullSettingsKey: "MainFlyWindowIsMap"
-            item1:                  mapControl
-            item2:                  QGroundControl.videoManager.hasVideo ? videoControl : null
-            show:                   QGroundControl.videoManager.hasVideo && !QGroundControl.videoManager.fullScreen &&
-                                        (videoControl.pipState.state === videoControl.pipState.pipState || mapControl.pipState.state === mapControl.pipState.pipState)
-            z:                      QGroundControl.zOrderWidgets
-
-            property real leftEdgeBottomInset: visible ? width + anchors.margins : 0
-            property real bottomEdgeLeftInset: visible ? height + anchors.margins : 0
+        // Right panel: Video + HUD + MAVLink console
+        FlyViewRightPanel {
+            id:             rightPanel
+            anchors.top:    parent.top
+            anchors.bottom: parent.bottom
+            anchors.right:  parent.right
+            anchors.topMargin: toolbar.height
+            panelWidth:     parent.width / 3
         }
 
         FlyViewWidgetLayer {
@@ -123,7 +148,7 @@ Item {
             anchors.top:            parent.top
             anchors.bottom:         parent.bottom
             anchors.left:           parent.left
-            anchors.right:          guidedValueSlider.visible ? guidedValueSlider.left : parent.right
+            anchors.right:          guidedValueSlider.visible ? guidedValueSlider.left : rightPanel.left
             anchors.margins:        _widgetMargin
             anchors.topMargin:      toolbar.height + _widgetMargin
             z:                      _fullItemZorder + 2 // we need to add one extra layer for map 3d viewer (normally was 1)
@@ -149,7 +174,7 @@ Item {
             anchors.top:            parent.top
             anchors.bottom:         parent.bottom
             anchors.left:           parent.left
-            anchors.right:          guidedValueSlider.visible ? guidedValueSlider.left : parent.right
+            anchors.right:          guidedValueSlider.visible ? guidedValueSlider.left : rightPanel.left
             z:                      widgetLayer.z + 1
             insetsToView:           widgetLayer.totalToolInsets
             visible:                false
@@ -164,16 +189,11 @@ Item {
         //-- Guided value slider (e.g. altitude)
         GuidedValueSlider {
             id:                 guidedValueSlider
-            anchors.right:      parent.right
+            anchors.right:      rightPanel.left
             anchors.top:        parent.top
             anchors.bottom:     parent.bottom
             z:                  QGroundControl.zOrderTopMost
             visible:            false
-        }
-
-        Viewer3D {
-            id: viewer3DWindow
-            anchors.fill: parent
         }
     }
 

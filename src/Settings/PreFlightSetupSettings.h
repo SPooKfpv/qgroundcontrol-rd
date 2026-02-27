@@ -25,6 +25,7 @@ public:
     DEFINE_SETTING_NAME_GROUP()
 
     DEFINE_SETTINGFACT(failsafeMode)
+    DEFINE_SETTINGFACT(loiterTime)
     DEFINE_SETTINGFACT(selectedVehicle)
     DEFINE_SETTINGFACT(udpPort)
     DEFINE_SETTINGFACT(checklistEnabled)

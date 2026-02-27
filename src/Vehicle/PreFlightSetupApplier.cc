@@ -21,7 +21,7 @@ QGC_LOGGING_CATEGORY(PreFlightSetupApplierLog, "qgc.vehicle.preflightsetupapplie
 
 // ArduPilot FS_THR_ENABLE values
 static constexpr int kFsThrRtl       = 1;   // RTL (used for Rally Point and RTL Home modes)
-static constexpr int kFsThrContinue  = 2;   // Continue/Loiter in place
+static constexpr int kFsThrLand      = 5;   // Land at current position
 
 PreFlightSetupApplier::PreFlightSetupApplier(QObject *parent)
     : QObject(parent)
@@ -72,6 +72,7 @@ void PreFlightSetupApplier::_applyFailsafeToVehicle()
 
     PreFlightSetupSettings *const settings = SettingsManager::instance()->preFlightSetupSettings();
     const int failsafeMode = settings->failsafeMode()->rawValue().toInt();
+    const int loiterTimeSec = settings->loiterTime()->rawValue().toInt();
 
     // Map our enum to ArduPilot FS_THR_ENABLE value
     int fsThrValue = kFsThrRtl;  // default to RTL
@@ -82,8 +83,8 @@ void PreFlightSetupApplier::_applyFailsafeToVehicle()
     case 1:  // RTL Home — standard RTL
         fsThrValue = kFsThrRtl;
         break;
-    case 2:  // Loiter Hold — continue/loiter in place
-        fsThrValue = kFsThrContinue;
+    case 2:  // Land — land at current position
+        fsThrValue = kFsThrLand;
         break;
     default:
         qCWarning(PreFlightSetupApplierLog) << "Unknown failsafe mode:" << failsafeMode << "— defaulting to RTL";
@@ -92,12 +93,23 @@ void PreFlightSetupApplier::_applyFailsafeToVehicle()
 
     ParameterManager *const paramMgr = vehicle->parameterManager();
 
-    // Apply FS_THR_ENABLE — check existence first (getParameter has no reportMissing param)
+    // Apply FS_THR_ENABLE
     if (paramMgr->parameterExists(ParameterManager::defaultComponentId, QStringLiteral("FS_THR_ENABLE"))) {
         paramMgr->getParameter(ParameterManager::defaultComponentId, QStringLiteral("FS_THR_ENABLE"))->setRawValue(fsThrValue);
         qCInfo(PreFlightSetupApplierLog) << "Set FS_THR_ENABLE =" << fsThrValue << "for vehicle id:" << vehicleId;
     } else {
         qCWarning(PreFlightSetupApplierLog) << "FS_THR_ENABLE not found on vehicle id:" << vehicleId << "— skipping";
+    }
+
+    // For Rally Point and RTL Home modes, set RTL_LOIT_TIME (loiter before landing, in milliseconds)
+    if (failsafeMode == 0 || failsafeMode == 1) {
+        const int loiterTimeMs = loiterTimeSec * 1000;
+        if (paramMgr->parameterExists(ParameterManager::defaultComponentId, QStringLiteral("RTL_LOIT_TIME"))) {
+            paramMgr->getParameter(ParameterManager::defaultComponentId, QStringLiteral("RTL_LOIT_TIME"))->setRawValue(loiterTimeMs);
+            qCInfo(PreFlightSetupApplierLog) << "Set RTL_LOIT_TIME =" << loiterTimeMs << "ms for vehicle id:" << vehicleId;
+        } else {
+            qCWarning(PreFlightSetupApplierLog) << "RTL_LOIT_TIME not found on vehicle id:" << vehicleId << "— skipping";
+        }
     }
 
     // For Rally Point mode, also set RALLY_ENABLE=1 so RTL uses rally points
@@ -108,7 +120,6 @@ void PreFlightSetupApplier::_applyFailsafeToVehicle()
         } else {
             qCWarning(PreFlightSetupApplierLog) << "RALLY_ENABLE not found on vehicle id:" << vehicleId << "— skipping";
         }
-        // Show a reminder to set the rally point before flight
         qgcApp()->showAppMessage(tr("Rally Point mode active — remember to set your rally point before flight."));
     }
 

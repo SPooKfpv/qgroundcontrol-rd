@@ -36,6 +36,12 @@ QGCPopupDialog {
         const settings = QGroundControl.settingsManager.preFlightSetupSettings
         settings.failsafeMode.rawValue = _selectedFailsafeMode
 
+        // Save loiter time
+        const loiterVal = parseInt(loiterTimeField.text)
+        if (!isNaN(loiterVal) && loiterVal >= 0 && loiterVal <= 300) {
+            settings.loiterTime.rawValue = loiterVal
+        }
+
         // Save vehicle selection
         if (vehicleConfigManager.availableVehicles.length > 0 && vehicleComboBox.currentIndex >= 0) {
             settings.selectedVehicle.rawValue = vehicleConfigManager.availableVehicles[vehicleComboBox.currentIndex]
@@ -232,11 +238,34 @@ QGCPopupDialog {
         }
 
         QGCRadioButton {
-            id:      loiterHoldRadio
-            text:    qsTr("Loiter Hold — Stay in place")
+            id:      landRadio
+            text:    qsTr("Land — Descend and land at current position")
             checked: root._selectedFailsafeMode === 2
             ButtonGroup.group: failsafeModeGroup
             onCheckedChanged: if (checked) root._selectedFailsafeMode = 2
+        }
+
+        // Loiter time before landing (applies to Rally Point and RTL Home modes)
+        RowLayout {
+            Layout.fillWidth: true
+            visible:          root._selectedFailsafeMode === 0 || root._selectedFailsafeMode === 1
+            spacing:          ScreenTools.defaultFontPixelWidth
+
+            QGCLabel {
+                text: qsTr("Loiter before landing:")
+            }
+
+            QGCTextField {
+                id:                 loiterTimeField
+                Layout.preferredWidth: ScreenTools.defaultFontPixelWidth * 8
+                text:               QGroundControl.settingsManager.preFlightSetupSettings.loiterTime.rawValue
+                inputMethodHints:   Qt.ImhDigitsOnly
+                validator:          IntValidator { bottom: 0; top: 300 }
+            }
+
+            QGCLabel {
+                text: qsTr("seconds")
+            }
         }
 
         // ── Separator ───────────────────────────────────────────────────────

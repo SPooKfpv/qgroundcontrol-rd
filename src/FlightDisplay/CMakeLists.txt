@@ -13,6 +13,8 @@ qt_add_qml_module(FlightDisplayModule
         AutoMissionButton.qml
         AutoMissionPanel.qml
         CustomGuidedActionsController.qml
+        FailsafeButton.qml
+        FailsafePanel.qml
         DefaultChecklist.qml
         FixedWingChecklist.qml
         FlightDisplayViewDummy.qml
@@ -33,6 +35,7 @@ qt_add_qml_module(FlightDisplayModule
         FlyViewGripperDropPanel.qml
         FlyViewMap.qml
         FlyViewMissionCompleteDialog.qml
+        FlyViewRightPanel.qml
         FlyViewPreFlightChecklistPopup.qml
         FlyViewToolStrip.qml
         FlyViewToolStripActionList.qml

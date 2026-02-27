@@ -116,18 +116,19 @@ int main(int argc, char *argv[])
     if (!args.runningUnitTests && !args.simpleBootTest) {
         splash = new SplashScreen();
         splash->start();
+        // Force the splash to render before the blocking init() call
+        QApplication::processEvents();
     }
 
     app.init();
 
-    // Hide the main window until splash finishes
-    if (splash) {
-        QQuickWindow *mainWindow = app.mainRootWindow();
-        if (mainWindow) {
-            mainWindow->setVisible(false);
-            QObject::connect(splash, &SplashScreen::finished, mainWindow, [mainWindow]() {
-                mainWindow->setVisible(true);
-            });
+    // MainWindow.qml starts with visible:false and MainWindowSavedState defers
+    // visibility so nothing shows until we explicitly call showWindow().
+    QQuickWindow *mainWindow = app.mainRootWindow();
+    if (mainWindow) {
+        auto showMainWindow = [mainWindow]() {
+            // Calls MainWindow.qml showWindow() which applies saved visibility state
+            QMetaObject::invokeMethod(mainWindow, "showWindow");
 #ifdef Q_OS_WIN
             // Set Windows 11 title bar and border color to match app branding
             if (HWND hwnd = reinterpret_cast<HWND>(mainWindow->winId())) {
@@ -138,6 +139,12 @@ int main(int argc, char *argv[])
                 DwmSetWindowAttribute(hwnd, DWMWA_BORDER_COLOR_VAL,  &color, sizeof(color));
             }
 #endif
+        };
+
+        if (splash) {
+            QObject::connect(splash, &SplashScreen::finished, mainWindow, showMainWindow);
+        } else {
+            showMainWindow();
         }
     }
 
